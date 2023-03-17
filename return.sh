@@ -1,2 +1,2 @@
-#!bin/bash
-sh ./wp-assassin
+clear
+sh ./wp-assassin.sh

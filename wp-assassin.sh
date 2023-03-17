@@ -1,11 +1,11 @@
 
 clear
+title="WordPress Assassin | By Virtuace Security"
 echo -e "$title\n"
 echo -e "Superuser Privilege Required. \n"
 sudo chmod +x return.sh
 clear
 
-title="WordPress Assassin | By Virtuace Security"
 echo -e "$title\n"
 read -p "Enter Target Domain (example.com): " target
 read -p "Enter name for logfile: " logname
@@ -71,7 +71,7 @@ do
                     esac
                 done
     ;;
-    
+
         "WordPress Vulnerability Scan")
             clear
             echo -e "$title\n"
@@ -112,7 +112,30 @@ do
                 ;;
                     "Main Menu")
                     clear
-                    sh ./wp-assassin.sh
+                    targetkeep=("Yes, maintain $target (not working, select no)" "No, I want to select a new target")
+                    select keep_target in "${targetkeep[@]}"
+                    do
+                        case $keep_target in
+                            "Yes, maintain $target (not working, select no)")
+                            echo -e "$target" >> targetsave.txt 
+                            echo -e " will be maintained"
+                            echo -e "\nReturning to main menu in 2 seconds..."
+                            sleep 2
+                            ./targethold.sh
+                        ;;
+                            "No, I want to select a new target")
+                            echo -e "The target $target will not be maintained. Program must be restarted."
+                            sleep 1
+                            echo -e "Exiting WordPress Assassin"
+                            #echo -e "\nReturning to main menu in 2 seconds..."
+                            sleep 1
+                            #./return.sh <-- Major bugfixes needed, will be implemented in the future
+                            exit 0
+                        ;;
+                        *)
+                        esac
+                    done
+                    
                 ;;
                 *)    
                 esac
