@@ -79,7 +79,21 @@ do
                     "Firewall Detection Scan")
                     clear
                     wafw00f $target2
+                    echo -e "\nPress 'Enter' to return to vulnerability menu.\n"
+                    sleep 1
+                    echo -e "Automatically returning in 5 seconds...\n"
+                    sleep 1
+                    echo -e "Returning in 4" 
+                    sleep 1
+                    echo -e "Returning in 3" 
+                    sleep 1
+                    echo -e "Returning in 2" 
+                    sleep 1
+                    echo -e "Returning in 1" 
+                    sleep 1
+                    clear
                     sh ./return.sh
+                    
 
                 ;;
                 *)    
