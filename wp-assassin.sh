@@ -1,10 +1,13 @@
 
 clear
+echo -e "$title\n"
 echo -e "Superuser Privilege Required. \n"
 sudo chmod +x return.sh
 clear
 
-
+title="WordPress Assassin | By Virtuace Security"
+echo -e "$title\n"
+read -p "Enter Target Domain (example.com): " target
 option=("WordPress Port Scan" "WordPress Vulnerability Scan" "Web Server Header Exploitation" "Web Server Vulnerability Scan" "Web Server Directory Attacks" "Quit")
 
 select opt in "${option[@]}"
@@ -13,7 +16,7 @@ do
 
         "WordPress Port Scan")
             clear
-            read -p "Enter Target Domain (example.com): " target
+            echo -e "$title\n"
             nslookup $target| grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $NF}' | sed '1,2d' > iptarget.txt
             iptarget=$(cat iptarget.txt)
             read -p "Enter name for logfile: " logname
@@ -41,10 +44,10 @@ do
                         outputlog=("logs/common_ports-$target-$logname.txt")
                         echo -e "Full TCP Port Scan Selected.\n Output file will be saved to $outputlog"
                         echo -e "\nScanning 13 TCP Ports on $target, this may take a moment \n"
-                        sudo nmap -sS -p T:21,22,23,25,53,80,443,554,3306,161,162,445,5432,179 -T4 -A $iptarget
+                        sudo nmap -sS -p T:21,22,23,25,53,80,443,554,3306,161,162,445,5432,179 -T4 -v $iptarget
                         echo -e "Scan Completed.\n"
                         cat $outputlog | grep "/tcp open"
-                        sh ./return.sh
+                        #sh ./return.sh
                         ;;
 
                         "SSH, FTP, and RDP Ports Only")
@@ -65,8 +68,7 @@ do
     ;;
         "WordPress Vulnerability Scan")
             clear
-            read -p "Enter Target Domain (example.com): " target2
-            nslookup $target2| grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $NF}' | sed '1,2d' > iptarget.txt
+            nslookup $target| grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $NF}' | sed '1,2d' > iptarget.txt
             iptarget=$(cat iptarget.txt)
             read -p "Enter name for logfile: " logname
             echo -e "\nTarget Set, How should I scan?\n"
@@ -78,8 +80,21 @@ do
                 case $opts2 in
                     "Firewall Detection Scan")
                     clear
-                    wafw00f $target2
-                    sh ./return.sh
+                    wafw00f $target
+                    echo -e "\nPress 'Enter' to return to vulnerability menu.\n"
+                    sleep 1
+                    echo -e "Automatically returning in 5 seconds...\n"
+                    sleep 1
+                    echo -e "Returning in 4" 
+                    sleep 1
+                    echo -e "Returning in 3" 
+                    sleep 1
+                    echo -e "Returning in 2" 
+                    sleep 1
+                    echo -e "Returning in 1" 
+                    sleep 1
+                    #sh ./return.sh
+                    
 
                 ;;
                 *)    
