@@ -1,16 +1,15 @@
 
 clear
 title="WordPress Assassin | By Virtuace Security"
-echo -e "$title\n"
 echo -e "Superuser Privilege Required. \n"
 sudo chmod +x return.sh
 clear
 
-echo -e "$title\n"
+echo -e "$title\n "
 read -p "Enter Target Domain (example.com): " target
 read -p "Enter name for logfile: " logname
 clear
-echo -e "$title\n"
+echo -e "$title\nSelected Target: $target\n"
 
 option=("WordPress Port Scan" "WordPress Vulnerability Scan" "Web Server Header Exploitation" "Web Server Vulnerability Scan" "Web Server Exploitation" "Quit")
 
@@ -20,7 +19,7 @@ do
 
         "WordPress Port Scan")
             clear
-            echo -e "$title\n"
+            echo -e "$title\nSelected Target: $target\n"
             nslookup $target| grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $NF}' | sed '1,2d' > iptarget.txt
             iptarget=$(cat iptarget.txt)
             #read -p "Enter name for logfile: " logname
@@ -33,20 +32,20 @@ do
                     case $opts in
                         "Full TCP Port Scan")
                         clear
-                        echo -e "$title\n"
+                        echo -e "$title\nSelected Target: $target\n"
                         outputlog=("logs/full_tcp_scan-$target-$logname.txt")
                         echo -e "Full TCP Port Scan Selected.\n Output file will be saved to $outputlog"
                         echo -e "\nSelected Target: $target\nServer IP: $iptarget\nPlease be patient, this may take several minutes. \n"
                         sudo nmap -sS -A -p- -T4 -v $iptarget -oN $outputlog
                         clear
-                        echo -e "$title\n"
+                        echo -e "$title\nSelected Target: $target\n"
                         echo -e "Scan Completed.\nOpen Ports Found on the server:\n"
                         cat $outputlog | grep "/tcp open"                       
                         ;;
 
                         "Common TCP Ports")
                         clear
-                        echo -e "$title\n"
+                        echo -e "$title\nSelected Target: $target\n"
                         outputlog=("logs/common_ports-$target-$logname.txt")
                         echo -e "Full TCP Port Scan Selected.\n Output file will be saved to $outputlog"
                         echo -e "\nScanning 13 TCP Ports on $target, this may take a moment \n"
@@ -57,7 +56,7 @@ do
 
                         "SSH, FTP, and RDP Ports Only")
                         clear
-                        echo -e "$title\n"
+                        echo -e "$title\nSelected Target: $target\n"
                         outputlog=("logs/ssh_tcp_rdp-$target-$logname.txt")
                         echo -e "Full TCP Port Scan Selected.\n Output file will be saved to $outputlog"
                         echo -e "\nScanning 13 TCP Ports on $target, this may take a moment \n"
@@ -74,7 +73,7 @@ do
 
         "WordPress Vulnerability Scan")
             clear
-            echo -e "$title\n"
+            echo -e "$title\nSelected Target: $target\n"
             nslookup $target| grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $NF}' | sed '1,2d' > iptarget.txt
             iptarget=$(cat iptarget.txt)
             echo -e "\nTarget Selected $target, How should I scan?\n"
@@ -86,20 +85,20 @@ do
                 case $opts2 in
                     "Firewall Detection Scan")
                     clear
-                    echo -e "$title\n"
+                    echo -e "$title\nSelected Target: $target\n"
                     wafw00f $target
                     echo -e "\nPress 'Enter' to return to vulnerability menu.\n"
                 ;;  
                     "Web Server Vulnerability Scan")
                     clear
-                    echo -e "$title\n"
+                    echo -e "$title\nSelected Target: $target\n"
                     echo -e "\t\t\t-- WARNING --\nIT IS UNADVISED TO RUN THIS TOOL WITHOUT PROXYCHAINS ENABLED \n"
                     
                     nikto -host $target
                 ;;
                     "Plugin Vulnerability Analysis")
                     clear
-                    echo -e "$title\n"
+                    echo -e "$title\nSelected Target: $target\n"
                     read -p "Enter Plugin or Service Name: " plugin_name
                     read -p "Enter Plugin Port: " plugin_port
                     echo -e "\n Plugin/Service Selected: $plugin_name"
@@ -107,7 +106,7 @@ do
                 ;;
                     "Client Side Attack Vector Vuln")
                     clear
-                    echo -e "$title\n"
+                    echo -e "$title\nSelected Target: $target\n"
                     echo -e "Under Construction. Press Enter to go back."
                 ;;
                     "Main Menu")
@@ -143,7 +142,7 @@ do
     ;;
         "Web Server Exploitation")
             clear
-            echo -e "$title\n"
+            echo -e "$title\nSelected Target: $target\n"
             echo -e "Under Construction\n"
             sleep 1
             echo -e "Press Enter to return to main menu..."
