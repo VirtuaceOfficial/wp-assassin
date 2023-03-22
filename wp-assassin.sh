@@ -1,11 +1,16 @@
 clear
 title="WordPress Assassin | By Virtuace Security"
-cat 'targetsave.txt' target
-echo -e "$title\nSelected Target: $target"
+echo -e "$title\n"
+echo -e "Superuser Privilege Required. \n"
+sudo chmod +x return.sh
 clear
-echo -e "$title\nSelected Target: $target"
-echo -e "$target"
 
+title="WordPress Assassin | By Virtuace Security"
+echo -e "$title\n"
+read -p "Enter Target Domain (example.com): " target
+read -p "Enter name for logfile: " logname
+clear
+echo -e "$title\n"
 option=("WordPress TCP Port Scan" "WordPress Vulnerability Scan" "Web Server Discovery" "Web Server Exploitation" "Quit")
 
 select opt in "${option[@]}"
